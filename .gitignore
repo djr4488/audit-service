@@ -100,3 +100,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+.idea/vcs.xml
+auditservice.iml
+src/main/resources/
+src/test/
