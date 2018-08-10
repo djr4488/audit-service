@@ -22,18 +22,23 @@ public class MethodParameterExtractor {
 
     public void extractParameters(InvocationContext invocationContext, List<JsonNode> parameters) {
         try {
-            for (int idx=0; idx < invocationContext.getParameters().length; idx++)
-                if (invocationContext.getParameters()[idx] instanceof HttpServletRequest) {
-                    HttpServletRequest req = (HttpServletRequest) invocationContext.getParameters()[idx];
-                    String headerJson = "{ \"httpServletRequest\": {";
-                    headerJson += "\"remote_addr\": \"" + req.getRemoteAddr() + "\",";
-                    headerJson += "\"remote_user\": \"" + req.getRemoteUser() + "\"";
-                    headerJson += " } }";
-                    parameters.add(jsonConverter.toObjectFromString(headerJson, JsonNode.class));
-                } else {
-                    parameters.add(jsonConverter.toObjectFromString(
-                            jsonConverter.toJsonString(invocationContext.getParameters()[idx]), JsonNode.class));
+            if (null != invocationContext.getParameters()) {
+                for (int idx = 0; idx < invocationContext.getParameters().length; idx++) {
+                    if (invocationContext.getParameters()[idx] instanceof HttpServletRequest) {
+                        HttpServletRequest req = (HttpServletRequest) invocationContext.getParameters()[idx];
+                        String headerJson = "{ \"httpServletRequest\": {";
+                        headerJson += "\"remote_addr\": \"" + req.getRemoteAddr() + "\",";
+                        headerJson += "\"remote_user\": \"" + req.getRemoteUser() + "\"";
+                        headerJson += " } }";
+                        parameters.add(jsonConverter.toObjectFromString(headerJson, JsonNode.class));
+                    } else {
+                        parameters.add(jsonConverter.toObjectFromString(
+                                jsonConverter.toJsonString(invocationContext.getParameters()[idx]), JsonNode.class));
+                    }
                 }
+            } else {
+                log.trace("extractParameters() no parameters for method/constructor");
+            }
         } catch (Exception ex) {
             log.error("Failed to capture parameters", ex);
         }
