@@ -21,6 +21,7 @@
 .idea/**/encodings.xml
 .idea/**/compiler.xml
 .idea/**/dbnavigator.xml
+.idea/**/vcs.xml
 
 # Gradle
 .idea/**/gradle.xml
