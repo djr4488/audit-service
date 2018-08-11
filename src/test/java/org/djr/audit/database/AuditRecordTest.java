@@ -1,4 +1,4 @@
-package io.github.djr4488.database;
+package org.djr.audit.database;
 
 import org.joda.time.DateTime;
 import org.junit.Test;

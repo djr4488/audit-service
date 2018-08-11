@@ -1,7 +1,7 @@
-package io.github.djr4488.database;
+package org.djr.audit.database;
 
-import io.github.djr4488.Intercepted;
-import io.github.djr4488.TestLogProducer;
+import org.djr.audit.Intercepted;
+import org.djr.audit.TestLogProducer;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
 import org.djr.cdi.converter.json.jackson.ObjectMapperProducer;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -16,9 +16,8 @@ import org.mockito.ArgumentCaptor;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 

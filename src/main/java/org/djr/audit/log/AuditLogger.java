@@ -1,4 +1,4 @@
-package io.github.djr4488.log;
+package org.djr.audit.log;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Documented;

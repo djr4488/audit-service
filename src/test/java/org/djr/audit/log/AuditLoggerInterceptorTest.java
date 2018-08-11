@@ -1,8 +1,8 @@
-package io.github.djr4488.log;
+package org.djr.audit.log;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import io.github.djr4488.Intercepted;
-import io.github.djr4488.TestLogProducer;
+import org.djr.audit.Intercepted;
+import org.djr.audit.TestLogProducer;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
 import org.djr.cdi.converter.json.jackson.ObjectMapperProducer;
 import org.jglue.cdiunit.ActivatedAlternatives;

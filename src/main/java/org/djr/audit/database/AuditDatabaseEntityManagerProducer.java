@@ -1,4 +1,4 @@
-package io.github.djr4488.database;
+package org.djr.audit.database;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

@@ -1,4 +1,4 @@
-package io.github.djr4488;
+package org.djr.audit;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.cdi.converter.json.jackson.JsonConverter;

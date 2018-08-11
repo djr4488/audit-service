@@ -1,4 +1,4 @@
-package io.github.djr4488.database;
+package org.djr.audit.database;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

@@ -1,4 +1,4 @@
-package io.github.djr4488;
+package org.djr.audit;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
