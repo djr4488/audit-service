@@ -40,15 +40,21 @@ public class AuditDatabaseInterceptor {
         String className = invocationContext.getTarget().getClass().getSimpleName();
         JsonNode returned = null;
         methodParameterExtractor.extractParameters(invocationContext, parameters);
-        Object object = invocationContext.proceed();
+        Object object = null;
+        Exception exception = null;
         try {
-            returned = jsonConverter.toObjectFromString(jsonConverter.toJsonString(object), JsonNode.class);
+            object = invocationContext.proceed();
         } catch (Exception ex) {
-            log.error("Failed to capture return", ex);
+            exception = ex;
         }
-        log.trace("doAudit() for parameters:{}, method:{}, className:{}, returned:{}", parameters, method, className, returned);
-        AuditRecord auditRecord = new AuditRecord(className, method, parameters, returned);
-        entityManager.persist(auditRecord);
+        returned = methodParameterExtractor.getJsonNodeForReturnOrException(object, exception);
+        log.trace("doAudit() for parameters:{}, method:{}, className:{}, appName:{}, returned:{}", parameters, method, className, resourceAppName, returned);
+        AuditRecord auditRecord = new AuditRecord(resourceAppName, className, method, parameters, returned);
+        try {
+            entityManager.persist(auditRecord);
+        } catch (Exception ex) {
+            log.error("doAudit() failed", ex);
+        }
         return object;
     }
 }

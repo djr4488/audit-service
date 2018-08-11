@@ -1,31 +1,28 @@
-package io.github.djr4488;
+package io.github.djr4488.database;
 
-
-import io.github.djr4488.log.AuditLogger;
-import io.github.djr4488.log.AuditLoggerInterceptor;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 
-@Interceptors({ AuditLoggerInterceptor.class })
+@Interceptors({ AuditDatabaseInterceptor.class })
 @ApplicationScoped
-public class Intercepted {
+public class InterceptedDatabase {
     @Inject
     private Logger log;
 
-    @AuditLogger
+    @AuditDatabase
     public String testIntercept(String testing) {
         return "tested";
     }
 
-    @AuditLogger
+    @AuditDatabase
     public void testInterceptNullReturn(String testing) {
         System.out.println(testing);
     }
 
-    @AuditLogger
+    @AuditDatabase
     public void testInterceptWithExceptionThrown(String testing) {
         throw new RuntimeException("testing exceptions");
     }

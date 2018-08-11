@@ -16,6 +16,8 @@ import java.util.List;
        indexes = { @Index(name = "class_name_idx", columnList = "class_name"),
                    @Index(name = "method_name_idx", columnList = "method_name")})
 public class AuditRecord extends AuditIdentifier {
+    @Column(name = "application_name")
+    private String applicationName;
     @Column(name = "class_name")
     private String className;
     @Column(name = "method")
@@ -30,11 +32,20 @@ public class AuditRecord extends AuditIdentifier {
     public AuditRecord() {
     }
 
-    public AuditRecord(String className, String method, List<JsonNode> parameters, JsonNode returned) {
+    public AuditRecord(String applicationName, String className, String method, List<JsonNode> parameters, JsonNode returned) {
+        this.applicationName = applicationName;
         this.className = className;
         this.method = method;
         this.parameters = parameters;
         this.returned = returned;
+    }
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
     }
 
     public String getClassName() {

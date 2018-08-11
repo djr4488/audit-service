@@ -43,4 +43,18 @@ public class MethodParameterExtractor {
             log.error("Failed to capture parameters", ex);
         }
     }
+
+    public JsonNode getJsonNodeForReturnOrException(Object object, Exception exception) {
+        JsonNode returned = null;
+        try {
+            if (null != object) {
+                returned = jsonConverter.toObjectFromString(jsonConverter.toJsonString(object), JsonNode.class);
+            } else {
+                returned = jsonConverter.toObjectFromString(jsonConverter.toJsonString(exception), JsonNode.class);
+            }
+        } catch (Exception ex) {
+            log.error("Failed to capture return", ex);
+        }
+        return returned;
+    }
 }

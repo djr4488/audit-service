@@ -28,10 +28,6 @@ private static final long serialVersionUID = 1L;
     @Column(name = "meta__version")
     @Version
     private Long version;
-    @Column(name = "meta__last_updated_by")
-    private String userName;
-    @Column(name = "meta__reason")
-    private String reason;
 
     public Long getId() {
         return id;
@@ -63,22 +59,6 @@ private static final long serialVersionUID = 1L;
 
     public void setVersion(Long version) {
         this.version = version;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
     }
 
     @Override

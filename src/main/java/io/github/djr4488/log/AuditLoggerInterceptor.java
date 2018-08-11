@@ -36,15 +36,20 @@ public class AuditLoggerInterceptor {
         String className = invocationContext.getTarget().getClass().getSimpleName();
         JsonNode returned = null;
         methodParameterExtractor.extractParameters(invocationContext, parameters);
-        Object object = invocationContext.proceed();
+        Object object = null;
+        Exception exception = null;
         try {
-            returned = jsonConverter.toObjectFromString(jsonConverter.toJsonString(object), JsonNode.class);
+            object = invocationContext.proceed();
         } catch (Exception ex) {
-            log.error("Failed to capture return", ex);
+            exception = ex;
         }
+        returned = methodParameterExtractor.getJsonNodeForReturnOrException(object, exception);
         log.info("AUDIT_LOG -- [{}, {}, {}, {}] parameters:{}, returned:{}", resourceAppName,
                 DateTime.now().withZone(DateTimeZone.UTC).toString(),
                 className, method, parameters, returned);
+        if (null != exception) {
+            throw exception;
+        }
         return object;
     }
 }
