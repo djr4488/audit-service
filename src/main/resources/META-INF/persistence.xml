@@ -4,9 +4,9 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-    <persistence-unit name="config-persistence-unit" transaction-type="JTA">
+    <persistence-unit name="audit_database" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <jta-data-source>ConfigDatabase</jta-data-source>
+        <jta-data-source>jdbc/AuditDatabase</jta-data-source>
         <class>org.djr.audit.database.AuditRecord</class>
         <properties>
             <property

@@ -37,7 +37,7 @@ public class AuditDatabaseInterceptorTest {
         ArgumentCaptor<AuditRecord> arArgCaptor = ArgumentCaptor.forClass(AuditRecord.class);
         intercepted.testIntercept("in progress");
         verify(entityManager, times(2)).persist(arArgCaptor.capture());
-        assertEquals("tested", arArgCaptor.getValue().getReturned().textValue());
+        assertEquals("\"tested\"", arArgCaptor.getValue().getReturned());
     }
 
     @Test
@@ -49,6 +49,6 @@ public class AuditDatabaseInterceptorTest {
             assertTrue(true);  // we expect this exception since we threw it in our intercepted method
         }
         verify(entityManager, times(2)).persist(arArgCaptor.capture());
-        assertEquals(1, arArgCaptor.getValue().getParameters().size());
+        assertEquals("[\"in progress\"]", arArgCaptor.getValue().getParameters());
     }
 }

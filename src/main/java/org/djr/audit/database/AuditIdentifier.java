@@ -7,12 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Date;
 
+@MappedSuperclass
 public abstract class AuditIdentifier implements Serializable {
 private static final long serialVersionUID = 1L;
     @Id

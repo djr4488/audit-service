@@ -2,16 +2,16 @@ package org.djr.audit.database;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.audit.MethodParameterExtractor;
+import org.djr.cdi.converter.json.jackson.JsonConverter;
 import org.slf4j.Logger;
 
-import javax.annotation.Resource;
+import javax.annotation.Resource;;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +23,11 @@ public class AuditDatabaseInterceptor {
     @Resource(lookup="java:app/AppName")
     private String resourceAppName;
     @Inject
-    @AuditDatabaseEM
-    private EntityManager entityManager;
-    @Inject
     private MethodParameterExtractor methodParameterExtractor;
+    @Inject
+    private AuditDatabaseService auditDatabaseService;
+    @Inject
+    private JsonConverter jsonConverter;
 
     @AroundInvoke
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -46,9 +47,10 @@ public class AuditDatabaseInterceptor {
         }
         returned = methodParameterExtractor.getJsonNodeForReturnOrException(object, exception);
         log.trace("doAudit() for parameters:{}, method:{}, className:{}, appName:{}, returned:{}", parameters, method, className, resourceAppName, returned);
-        AuditRecord auditRecord = new AuditRecord(resourceAppName, className, method, parameters, returned);
+        AuditRecord auditRecord = new AuditRecord(resourceAppName, className, method, jsonConverter.toJsonString(parameters),
+                jsonConverter.toJsonString(returned));
         try {
-            entityManager.persist(auditRecord);
+            auditDatabaseService.writeAuditRecord(auditRecord);
         } catch (Exception ex) {
             log.error("doAudit() failed", ex);
         }

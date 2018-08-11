@@ -4,11 +4,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 
 @ApplicationScoped
 public class AuditDatabaseEntityManagerProducer {
-    @PersistenceUnit(unitName = "audit_database")
+    @PersistenceContext(unitName = "audit_database")
     private EntityManager entityManager;
 
     @Produces

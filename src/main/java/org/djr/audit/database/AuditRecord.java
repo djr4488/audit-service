@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "AuditRecord",
+@Table(name = "audit_records",
        indexes = { @Index(name = "class_name_idx", columnList = "class_name"),
                    @Index(name = "method_name_idx", columnList = "method_name")})
 public class AuditRecord extends AuditIdentifier {
@@ -24,15 +24,15 @@ public class AuditRecord extends AuditIdentifier {
     private String method;
     @Lob
     @Column(name = "parameters")
-    private List<JsonNode> parameters;
+    private String parameters;
     @Lob
     @Column(name = "returned")
-    private JsonNode returned;
+    private String returned;
 
     public AuditRecord() {
     }
 
-    public AuditRecord(String applicationName, String className, String method, List<JsonNode> parameters, JsonNode returned) {
+    public AuditRecord(String applicationName, String className, String method, String parameters, String returned) {
         this.applicationName = applicationName;
         this.className = className;
         this.method = method;
@@ -64,19 +64,19 @@ public class AuditRecord extends AuditIdentifier {
         this.method = method;
     }
 
-    public List<JsonNode> getParameters() {
+    public String getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<JsonNode> parameters) {
+    public void setParameters(String parameters) {
         this.parameters = parameters;
     }
 
-    public JsonNode getReturned() {
+    public String getReturned() {
         return returned;
     }
 
-    public void setReturned(JsonNode returned) {
+    public void setReturned(String returned) {
         this.returned = returned;
     }
 
