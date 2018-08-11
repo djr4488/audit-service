@@ -87,21 +87,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.djr.retrofitee</groupId>
-            <artifactId>retrofitee-core</artifactId>
-            <version>${retrofitee.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.force.api</groupId>
-            <artifactId>force-partner-api</artifactId>
-            <version>${force.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.djr.salesforce</groupId>
-            <artifactId>login</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>io.github.djr4488</groupId>
+            <artifactId>cdilib.utils</artifactId>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -217,48 +205,42 @@
             <version>4.0.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.squareup.retrofit2</groupId>
-            <artifactId>retrofit-mock</artifactId>
-            <version>${retrofit.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <repoToken>g4AL9GocLNJJ2lR1IpQgaXhOJ4fCQDCCb</repoToken>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>5.0.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.6.201602180812</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <!--<build>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.eluder.coveralls</groupId>-->
+                <!--<artifactId>coveralls-maven-plugin</artifactId>-->
+                <!--<version>3.0.1</version>-->
+                <!--<configuration>-->
+                    <!--<repoToken>g4AL9GocLNJJ2lR1IpQgaXhOJ4fCQDCCb</repoToken>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>cobertura-maven-plugin</artifactId>-->
+                <!--<version>2.6</version>-->
+                <!--<dependencies>-->
+                    <!--<dependency>-->
+                        <!--<groupId>org.ow2.asm</groupId>-->
+                        <!--<artifactId>asm</artifactId>-->
+                        <!--<version>5.0.3</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+            <!--</plugin>-->
+            <!--<plugin>-->
+                <!--<groupId>org.jacoco</groupId>-->
+                <!--<artifactId>jacoco-maven-plugin</artifactId>-->
+                <!--<version>0.7.6.201602180812</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>prepare-agent</id>-->
+                        <!--<goals>-->
+                            <!--<goal>prepare-agent</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
 </project>

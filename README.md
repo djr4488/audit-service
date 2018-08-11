@@ -2,8 +2,7 @@
 Just a very simple auditing set of interceptors for Java EE
 
 ## Build and testing status
-* Build: [![Build Status](https://travis-ci.org/djr4488/audit-service.svg?branch=master)](https://travis-ci.org/djr4488/audit-service)
-* Coverage: [![Coverage Status](https://coveralls.io/repos/djr4488/audit-service/badge.svg?branch=master)](https://coveralls.io/r/djr4488/audit-service?branch=master) [![codecov](https://codecov.io/gh/djr4488/audit-service/branch/master/graph/badge.svg)](https://codecov.io/gh/djr4488/audit-service)
+TODO
 
 ## How to use this
 There are two different audit types that I have
