@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(name = "audit_records",
@@ -20,8 +19,10 @@ public class AuditRecord extends AuditIdentifier {
     private String applicationName;
     @Column(name = "class_name")
     private String className;
-    @Column(name = "method")
+    @Column(name = "method_name")
     private String method;
+    @Column(name = "is_exception")
+    private Boolean isException;
     @Lob
     @Column(name = "parameters")
     private String parameters;
@@ -32,10 +33,11 @@ public class AuditRecord extends AuditIdentifier {
     public AuditRecord() {
     }
 
-    public AuditRecord(String applicationName, String className, String method, String parameters, String returned) {
+    public AuditRecord(String applicationName, String className, String method, Boolean isException, String parameters, String returned) {
         this.applicationName = applicationName;
         this.className = className;
         this.method = method;
+        this.isException = isException;
         this.parameters = parameters;
         this.returned = returned;
     }
@@ -62,6 +64,14 @@ public class AuditRecord extends AuditIdentifier {
 
     public void setMethod(String method) {
         this.method = method;
+    }
+
+    public Boolean isException() {
+        return isException;
+    }
+
+    public void setException(Boolean isException) {
+        this.isException = isException;
     }
 
     public String getParameters() {

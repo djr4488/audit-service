@@ -1,5 +1,7 @@
 package org.djr.audit.database;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.audit.MethodParameterExtractor;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
@@ -32,7 +34,7 @@ public class AuditDatabaseInterceptor {
     @AroundInvoke
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Object aroundInvoke(InvocationContext invocationContext)
-            throws Exception {
+    throws Exception {
         List<JsonNode> parameters = new ArrayList<>();
         String method = invocationContext.getMethod().getName();
         String className = invocationContext.getTarget().getClass().getSimpleName();
@@ -47,13 +49,24 @@ public class AuditDatabaseInterceptor {
         }
         returned = methodParameterExtractor.getJsonNodeForReturnOrException(object, exception);
         log.trace("doAudit() for parameters:{}, method:{}, className:{}, appName:{}, returned:{}", parameters, method, className, resourceAppName, returned);
-        AuditRecord auditRecord = new AuditRecord(resourceAppName, className, method, jsonConverter.toJsonString(parameters),
-                jsonConverter.toJsonString(returned));
         try {
+            AuditRecord auditRecord = getAuditRecord(parameters, method, className, returned, exception);
             auditDatabaseService.writeAuditRecord(auditRecord);
         } catch (Exception ex) {
-            log.error("doAudit() failed", ex);
+            log.error("doAudit() failed with ", ex);
         }
         return object;
+    }
+
+    private AuditRecord getAuditRecord(List<JsonNode> parameters, String method, String className, JsonNode returned, Exception exception)
+    throws com.fasterxml.jackson.core.JsonProcessingException {
+        AuditRecordBuilder arb = new AuditRecordBuilder();
+        arb.setApplicationName(resourceAppName)
+           .setClassName(className)
+           .setMethodName(method)
+           .setException(null != exception)
+           .setParameters(jsonConverter.toJsonString(parameters))
+           .setReturned(jsonConverter.toJsonString(returned));
+        return arb.build();
     }
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 public class AuditRecordTest {
@@ -31,7 +32,9 @@ public class AuditRecordTest {
         assertEquals(1L, ar.getId().longValue());
         ar.setVersion(1L);
         assertEquals(1L, ar.getVersion().longValue());
-        assertEquals("AuditRecord[applicationName=test,className=test,method=test,parameters=<null>,returned=<null>,id=1,createdAt=Tue Feb 01 00:00:00 CST 2000,lastUpdatedAt=Tue Feb 01 00:00:00 CST 2000,version=1]",
+        ar.setException(false);
+        assertFalse(ar.isException());
+        assertEquals("AuditRecord[applicationName=test,className=test,method=test,isException=false,parameters=<null>,returned=<null>,id=1,createdAt=Tue Feb 01 00:00:00 CST 2000,lastUpdatedAt=Tue Feb 01 00:00:00 CST 2000,version=1]",
                 ar.toString());
     }
 }
