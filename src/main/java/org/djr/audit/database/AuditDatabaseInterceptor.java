@@ -55,6 +55,9 @@ public class AuditDatabaseInterceptor {
         } catch (Exception ex) {
             log.error("doAudit() failed with ", ex);
         }
+        if (null != exception) {
+            throw exception;
+        }
         return object;
     }
 
