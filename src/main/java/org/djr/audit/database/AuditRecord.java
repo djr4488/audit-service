@@ -1,6 +1,5 @@
 package org.djr.audit.database;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

@@ -1,7 +1,5 @@
 package org.djr.audit.database;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.audit.MethodParameterExtractor;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
@@ -48,12 +46,12 @@ public class AuditDatabaseInterceptor {
             exception = ex;
         }
         returned = methodParameterExtractor.getJsonNodeForReturnOrException(object, exception);
-        log.trace("doAudit() for parameters:{}, method:{}, className:{}, appName:{}, returned:{}", parameters, method, className, resourceAppName, returned);
+        log.trace("aroundInvoke() for parameters:{}, method:{}, className:{}, appName:{}, returned:{}", parameters, method, className, resourceAppName, returned);
         try {
             AuditRecord auditRecord = getAuditRecord(parameters, method, className, returned, exception);
             auditDatabaseService.writeAuditRecord(auditRecord);
         } catch (Exception ex) {
-            log.error("doAudit() failed with ", ex);
+            log.error("aroundInvoke() failed with ", ex);
         }
         if (null != exception) {
             throw exception;
