@@ -1,6 +1,7 @@
 package org.djr.audit.database;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
 import java.util.Date;
@@ -23,7 +24,7 @@ public class AuditRecordTest {
         assertNull(ar.getParameters());
         ar.setReturned(null);
         assertNull(ar.getReturned());
-        Date now = DateTime.now().withYear(2000).withMonthOfYear(2).withDayOfMonth(1).withTimeAtStartOfDay().toDate();
+        DateTime now = DateTime.now().withYear(2000).withMonthOfYear(2).withDayOfMonth(1).withTimeAtStartOfDay().withZone(DateTimeZone.UTC);
         ar.setCreatedAt(now);
         assertEquals(now, ar.getCreatedAt());
         ar.setLastUpdatedAt(now);
@@ -34,7 +35,7 @@ public class AuditRecordTest {
         assertEquals(1L, ar.getVersion().longValue());
         ar.setException(false);
         assertFalse(ar.isException());
-        assertEquals("AuditRecord[applicationName=test,className=test,method=test,isException=false,parameters=<null>,returned=<null>,id=1,createdAt=Tue Feb 01 00:00:00 CST 2000,lastUpdatedAt=Tue Feb 01 00:00:00 CST 2000,version=1]",
+        assertEquals("AuditRecord[applicationName=test,className=test,method=test,isException=false,parameters=<null>,returned=<null>,id=1,createdAt=2000-02-01T06:00:00.000Z,lastUpdatedAt=2000-02-01T06:00:00.000Z,version=1]",
                 ar.toString());
     }
 }

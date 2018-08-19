@@ -2,6 +2,7 @@ package org.djr.audit.database;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.joda.time.DateTime;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import java.io.Serializable;
-import java.util.Date;
 
 @MappedSuperclass
 public abstract class AuditIdentifier implements Serializable {
@@ -23,10 +23,10 @@ private static final long serialVersionUID = 1L;
     private Long id;
     @Column(name = "meta__created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt = new Date();
+    private DateTime createdAt = DateTime.now();
     @Column(name = "meta__last_updated_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdatedAt = new Date();
+    private DateTime lastUpdatedAt = DateTime.now();
     @Column(name = "meta__version")
     @Version
     private Long version;
@@ -39,19 +39,19 @@ private static final long serialVersionUID = 1L;
         this.id = id;
     }
 
-    public Date getCreatedAt() {
+    public DateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getLastUpdatedAt() {
+    public DateTime getLastUpdatedAt() {
         return lastUpdatedAt;
     }
 
-    public void setLastUpdatedAt(Date lastUpdatedAt) {
+    public void setLastUpdatedAt(DateTime lastUpdatedAt) {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
