@@ -132,9 +132,9 @@
 
         <!-- cdi -->
         <dependency>
-            <groupId>org.djr.cdicommon</groupId>
-            <artifactId>cdi-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>io.github.djr4488</groupId>
+            <artifactId>cdilib.utils</artifactId>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 
