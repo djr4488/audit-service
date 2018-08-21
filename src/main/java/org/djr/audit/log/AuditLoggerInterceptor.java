@@ -2,11 +2,9 @@ package org.djr.audit.log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.audit.MethodParameterExtractor;
-import org.djr.cdi.converter.json.jackson.JsonConverter;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
-
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -19,8 +17,6 @@ import java.util.List;
 @AuditLogger
 @Interceptor
 public class AuditLoggerInterceptor {
-    @Inject
-    private JsonConverter jsonConverter;
     @Inject
     private Logger log;
     @Resource(lookup="java:app/AppName")
