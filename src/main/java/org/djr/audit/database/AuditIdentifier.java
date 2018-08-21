@@ -62,9 +62,4 @@ private static final long serialVersionUID = 1L;
     public void setVersion(Long version) {
         this.version = version;
     }
-
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
 }

@@ -34,8 +34,14 @@ public class AuditDatabaseInterceptor {
     public Object aroundInvoke(InvocationContext invocationContext)
     throws Exception {
         List<JsonNode> parameters = new ArrayList<>();
-        String method = invocationContext.getMethod().getName();
-        String className = invocationContext.getTarget().getClass().getSimpleName();
+        String method = null;
+        String className = null;
+        try {
+            method = invocationContext.getMethod().getName();
+            className = invocationContext.getTarget().getClass().getSimpleName();
+        } catch (Exception ex) {
+            log.error("aroundInvoke() unable to retrieve method and / or class information", ex);
+        }
         JsonNode returned = null;
         methodParameterExtractor.extractParameters(invocationContext, parameters);
         Object object = null;
