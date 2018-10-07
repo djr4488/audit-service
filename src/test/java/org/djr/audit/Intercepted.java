@@ -3,6 +3,7 @@ package org.djr.audit;
 
 import org.djr.audit.log.AuditLogger;
 import org.djr.audit.log.AuditLoggerInterceptor;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,6 +14,7 @@ import javax.interceptor.Interceptors;
 @ApplicationScoped
 public class Intercepted {
     @Inject
+    @Slf4jLogger
     private Logger log;
 
     @AuditLogger

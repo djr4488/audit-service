@@ -2,6 +2,7 @@ package org.djr.audit;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,6 +16,7 @@ public class MethodParameterExtractor {
     @Inject
     private JsonConverter jsonConverter;
     @Inject
+    @Slf4jLogger
     private Logger log;
 
     public MethodParameterExtractor() {

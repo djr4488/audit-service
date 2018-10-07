@@ -5,6 +5,7 @@ import org.djr.audit.Intercepted;
 import org.djr.audit.TestLogProducer;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
 import org.djr.cdi.converter.json.jackson.ObjectMapperProducer;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -28,6 +29,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AuditLoggerInterceptorTest {
     @Inject
+    @Slf4jLogger
     private Logger log;
     @Inject
     private Intercepted intercepted;

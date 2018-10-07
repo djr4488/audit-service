@@ -1,7 +1,8 @@
 package org.djr.audit.database;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 
 import javax.persistence.Column;
@@ -15,6 +16,9 @@ import javax.persistence.Version;
 import java.io.Serializable;
 
 @MappedSuperclass
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class AuditIdentifier implements Serializable {
 private static final long serialVersionUID = 1L;
     @Id

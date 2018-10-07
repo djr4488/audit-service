@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.djr.audit.database.AuditRecord;
 import org.djr.cdi.converter.json.jackson.JacksonObjectMapper;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -26,11 +27,12 @@ public class MethodParameterExtractorTestWithMockedObjectMapper {
     @Inject
     private MethodParameterExtractor methodParameterExtractor;
     @Inject
+    @Slf4jLogger
     private Logger log;
 
     @Test
     public void testWhenExceptionOnHandlingReturnConversion() {
-        AuditRecord ar  = new AuditRecord("app", "test", "test", true, "test", "test");
+        AuditRecord ar  = new AuditRecord("app", "test", "test", true, 1L,"test", "test");
         try {
             RuntimeException rtEx = new RuntimeException("Test");
             when(objectMapper.writeValueAsString(ar)).thenThrow(rtEx);

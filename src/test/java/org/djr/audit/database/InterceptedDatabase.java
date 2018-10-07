@@ -1,5 +1,6 @@
 package org.djr.audit.database;
 
+import org.djr.cdi.logs.Slf4jLogger;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -10,6 +11,7 @@ import javax.interceptor.Interceptors;
 @ApplicationScoped
 public class InterceptedDatabase {
     @Inject
+    @Slf4jLogger
     private Logger log;
 
     @AuditDatabase

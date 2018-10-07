@@ -2,6 +2,7 @@ package org.djr.audit.log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.audit.MethodParameterExtractor;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import java.util.List;
 @Interceptor
 public class AuditLoggerInterceptor {
     @Inject
+    @Slf4jLogger
     private Logger log;
     @Resource(lookup="java:app/AppName")
     private String resourceAppName;
@@ -34,15 +36,17 @@ public class AuditLoggerInterceptor {
         methodParameterExtractor.extractParameters(invocationContext, parameters);
         Object object = null;
         Exception exception = null;
+        Long startTimeMillis = DateTime.now().getMillis();
         try {
             object = invocationContext.proceed();
         } catch (Exception ex) {
             exception = ex;
         }
+        Long endTimeMillis = DateTime.now().getMillis();
+        Long totalTimeMillis = endTimeMillis - startTimeMillis;
         returned = methodParameterExtractor.getJsonNodeForReturnOrException(object, exception);
         log.info("AUDIT_LOG -- [{}, {}, {}, {}] parameters:{}, returned:{}", resourceAppName,
-                DateTime.now().withZone(DateTimeZone.UTC).toString(),
-                className, method, parameters, returned);
+                totalTimeMillis, className, method, parameters, returned);
         if (null != exception) {
             throw exception;
         }

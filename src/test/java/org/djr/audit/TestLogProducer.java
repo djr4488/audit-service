@@ -1,5 +1,6 @@
 package org.djr.audit;
 
+import org.djr.cdi.logs.Slf4jLogger;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,6 +15,7 @@ public class TestLogProducer {
     private static final Logger log = mock(Logger.class);
 
     @Produces
+    @Slf4jLogger
     public Logger produceMockLogger() {
         return log;
     }

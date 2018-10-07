@@ -3,6 +3,7 @@ package org.djr.audit;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
 import org.djr.cdi.converter.json.jackson.ObjectMapperProducer;
+import org.djr.cdi.logs.Slf4jLogger;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -29,6 +30,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @ActivatedAlternatives({ TestLogProducer.class })
 public class MethodParameterExtractorTest {
     @Inject
+    @Slf4jLogger
     private Logger log;
     @Inject
     private MethodParameterExtractor methodParameterExtractor;

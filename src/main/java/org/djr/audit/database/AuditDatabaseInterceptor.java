@@ -1,8 +1,11 @@
 package org.djr.audit.database;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.djr.audit.MethodParameterExtractor;
 import org.djr.cdi.converter.json.jackson.JsonConverter;
+import org.djr.cdi.logs.Slf4jLogger;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 
 import javax.annotation.Resource;;
@@ -19,6 +22,7 @@ import java.util.List;
 @Interceptor
 public class AuditDatabaseInterceptor {
     @Inject
+    @Slf4jLogger
     private Logger log;
     @Resource(lookup="java:app/AppName")
     private String resourceAppName;
@@ -36,6 +40,7 @@ public class AuditDatabaseInterceptor {
         List<JsonNode> parameters = new ArrayList<>();
         String method = null;
         String className = null;
+        Long startTimeMillis = DateTime.now().getMillis();
         try {
             method = invocationContext.getMethod().getName();
             className = invocationContext.getTarget().getClass().getSimpleName();
@@ -51,10 +56,12 @@ public class AuditDatabaseInterceptor {
         } catch (Exception ex) {
             exception = ex;
         }
+        Long endTimeMillis = DateTime.now().getMillis();
+        Long executeTimeMillis = endTimeMillis - startTimeMillis;
         returned = methodParameterExtractor.getJsonNodeForReturnOrException(object, exception);
         log.trace("aroundInvoke() for parameters:{}, method:{}, className:{}, appName:{}, returned:{}", parameters, method, className, resourceAppName, returned);
         try {
-            AuditRecord auditRecord = getAuditRecord(parameters, method, className, returned, exception);
+            AuditRecord auditRecord = getAuditRecord(parameters, method, className, returned, exception, executeTimeMillis);
             auditDatabaseService.writeAuditRecord(auditRecord);
         } catch (Exception ex) {
             log.error("aroundInvoke() failed with ", ex);
@@ -65,15 +72,12 @@ public class AuditDatabaseInterceptor {
         return object;
     }
 
-    private AuditRecord getAuditRecord(List<JsonNode> parameters, String method, String className, JsonNode returned, Exception exception)
-    throws com.fasterxml.jackson.core.JsonProcessingException {
-        AuditRecordBuilder arb = new AuditRecordBuilder();
-        arb.setApplicationName(resourceAppName)
-           .setClassName(className)
-           .setMethodName(method)
-           .setException(null != exception)
-           .setParameters(jsonConverter.toJsonString(parameters))
-           .setReturned(jsonConverter.toJsonString(returned));
-        return arb.build();
+    private AuditRecord getAuditRecord(List<JsonNode> parameters, String method, String className, JsonNode returned,
+                                       Exception exception, Long executeTimeMillis)
+    throws JsonProcessingException {
+        String parametersJson = jsonConverter.toJsonString(parameters);
+        String returnedJson = returned.toString();
+        return new AuditRecord(resourceAppName, className, method, null != exception, executeTimeMillis,
+                parametersJson, returnedJson);
     }
 }
